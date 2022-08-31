@@ -1,5 +1,7 @@
-import React from "react";
+// Import React / Redux
 import { combineReducers } from "redux";
+
+// Import Reducer
 import adminDialogReducer from "./adminDialogReducer";
 import authReducer from "./authReducer";
 import listReducer from "./listReducer";

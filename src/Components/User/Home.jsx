@@ -1,5 +1,10 @@
-import { Box } from "@mui/material";
+// Import React / Redux
 import React from "react";
+
+// Import MUI
+import { Box } from "@mui/material";
+
+// Import Component
 import UserCard from "./UserCard";
 
 const Home = () => {

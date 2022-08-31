@@ -1,4 +1,3 @@
-import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const adminDialogSlice = createSlice({
@@ -9,10 +8,12 @@ export const adminDialogSlice = createSlice({
     targetUser: false,
   },
   reducers: {
+    // Switch current dialog and toggle visibility
     toggleDialog: (state, action) => {
       state.currDialog = action.payload.currDialog;
       state.visible = action.payload.visible;
     },
+    // Switch dialog with target user
     toggleDialogWithUser: (state, action) => {
       let { currDialog, visible, targetUser } = action.payload;
       state.currDialog = currDialog;

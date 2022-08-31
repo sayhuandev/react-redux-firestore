@@ -1,4 +1,8 @@
-import React, { useEffect } from "react";
+// Import React / Redux
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+// Import MUI
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,28 +10,36 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Swal from "sweetalert2";
-import { addDoc, collection, getFirestore, query, where, getDocs, updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
-import Firebase from "../../../Firebase";
-import CryptoJS from "crypto-js";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleDialog, toggleDialogWithUser } from "../../Reducers/adminDialogReducer";
-import { deleteUser } from "../../Reducers/listReducer";
-
 import Typography from "@mui/material/Typography";
 
+// Import Firebase / Firestore
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import Firebase from "../../../Firebase";
+
+// Import Other Plugin
+import Swal from "sweetalert2";
+
+// Import Reducer
+import { toggleDialog } from "../../Reducers/adminDialogReducer";
+import { deleteUser } from "../../Reducers/listReducer";
+
 export default function DltUserDialog(props) {
-  const db = getFirestore(Firebase);
-  const dialog = useSelector((state) => state.adminDialog);
-  const users = useSelector((state) => state.list.users);
-  const targetUser = users.find((x) => x.auth_uid == dialog.targetUser);
+  // Hooks
   const dispatch = useDispatch();
 
+  // Variables
+  const db = getFirestore(Firebase);
+
+  // Redux
+  const dialog = useSelector((state) => state.adminDialog);
+  const users = useSelector((state) => state.list.users);
+  const targetUser = users.find((x) => x.auth_uid === dialog.targetUser);
+
+  // Functions
   const submitDeleteUser = async (e) => {
     e.preventDefault();
     const userRef = doc(db, "users", dialog.targetUser);
@@ -43,6 +55,7 @@ export default function DltUserDialog(props) {
     dispatch(toggleDialog({ ...dialog, visible: false }));
   };
 
+  // Render
   return (
     <>
       {targetUser && (

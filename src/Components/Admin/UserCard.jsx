@@ -1,27 +1,40 @@
+// Import React / Redux
 import * as React from "react";
+import { useDispatch } from "react-redux";
+
+// Import MUI
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
-import { toggleDialogWithUser } from "../Reducers/adminDialogReducer";
-import EditIcon from "@mui/icons-material/Edit";
+
+// Import MUI Icon
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+
+// Import Reducer
+import { toggleDialogWithUser } from "../Reducers/adminDialogReducer";
 
 export default function UserCard(props) {
+  // Variables
   const auth = props.user;
+
+  // Hooks
   const dispatch = useDispatch();
+
+  // Functions
   const randomNum = (min = 11, max = 80) => Math.floor(Math.random() * (max - min + 1) + min);
 
   const dialogControl = (currDialog, targetUser) => {
     dispatch(toggleDialogWithUser({ currDialog, visible: true, targetUser }));
   };
 
+  // Render
   return (
     <Card sx={{ maxWidth: 350, minHeight: 250 }} className="my-auto">
-      {/* <CardMedia component="img" height="200" image={`https://picsum.photos/id/10${randomNum()}/900/1000`} alt="avatar" /> */}
-      <CardMedia component="img" height="200" image={`https://picsum.photos/id/1035/900/1000`} alt="avatar" />
+      <CardMedia component="img" height="200" image={`https://picsum.photos/id/10${randomNum()}/900/1000`} alt="avatar" />
+      {/* <CardMedia component="img" height="200" image={`https://picsum.photos/id/1035/900/1000`} alt="avatar" /> */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" className="text-center">
           {`${auth.auth_user_det.first_name} ${auth.auth_user_det.last_name}`}

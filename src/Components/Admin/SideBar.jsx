@@ -1,6 +1,8 @@
+// Import React / Redux
 import React from "react";
+
+// Import MUI
 import { styled } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,13 +11,17 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
+
+// Import MUI Icon
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+
+// Import Component
 import { mainListItems } from "./ListItems";
 
+// Styled Component
 const drawerWidth = 240;
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -59,10 +65,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 }));
 
 const SideBar = () => {
+  // States
   const [open, setOpen] = React.useState(true);
+
+  // Functions
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  // Render
   return (
     <>
       <AppBar position="absolute" open={open}>

@@ -1,13 +1,16 @@
+// Import React / Redux
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
+// Route List
 import UserRouteList from "../../Routes/UserRouteList";
 import Home from "../User/Home";
 
-import CssBaseline from "@mui/material/CssBaseline";
+// Import MUI
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
+
+// Import Component
 import Copyright from "../Auth/Copyright";
 import NavBar from "../User/NavBar";
 

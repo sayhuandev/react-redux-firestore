@@ -1,4 +1,9 @@
+// Import React / Redux
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+// Import MUI
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,22 +16,31 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// Import Component
 import Copyright from "./Copyright";
+
+// Import Firebase / Firestore
 import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 import firebase from "../../Firebase";
+
+// Import Other Plugin
 import Swal from "sweetalert2";
 import CryptoJS from "crypto-js";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+// Import Reducer
 import { initAuth } from "../Reducers/authReducer";
 
-const db = getFirestore(firebase);
-const theme = createTheme();
-
 export default function Login() {
+  // Variables
+  const db = getFirestore(firebase);
+  const theme = createTheme();
+
+  // Hooks
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // Functions
   const login = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -44,14 +58,17 @@ export default function Login() {
             Swal.fire("Logged In Successfully", "", "success");
             localStorage.setItem("user_role", userData.role);
             localStorage.setItem("user_email", userData.email);
-            dispatch(
-              initAuth({
-                auth_role: userData.role,
-                auth_uid: userId,
-                auth_email: userData.email,
-                auth_user_det: { first_name: userData.firstName, last_name: userData.lastName, gender: userData.gender },
-              })
-            );
+
+            let authData = {
+              auth_role: userData.role,
+              auth_uid: userId,
+              auth_email: userData.email,
+              auth_user_det: { first_name: userData.firstName, last_name: userData.lastName, gender: userData.gender },
+            };
+
+            localStorage.setItem("user_auth_data", JSON.stringify(authData));
+
+            dispatch(initAuth(authData));
             if (userData.role === "user") history.push("/home");
             else if (userData.role === "admin") history.push("/admin/dashboard");
           } else {
@@ -64,6 +81,7 @@ export default function Login() {
     }
   };
 
+  // Render
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -78,7 +96,7 @@ export default function Login() {
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
           <Typography component="h1" variant="h5">
-            Sign innnnn
+            Sign In
           </Typography>
           <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
             <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />

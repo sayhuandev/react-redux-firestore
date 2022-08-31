@@ -1,4 +1,7 @@
+// Import React / Redux
 import * as React from "react";
+
+// Import MUI
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,17 +12,24 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+
+// Import MUI Icon
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
+
+// Import Reducer
 import { logoutAuth } from "../Reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+// Import Other Plugin
 import Swal from "sweetalert2";
 
+// Styled Component
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -61,15 +71,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+  // Hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // States
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  // Variables
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  // Functions
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -163,6 +177,7 @@ export default function NavBar() {
     </Menu>
   );
 
+  // Render
   return (
     <Box>
       <AppBar position="static">

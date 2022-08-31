@@ -1,29 +1,48 @@
-import React, { useEffect, useState } from "react";
+// Import React / Redux
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// Import MUI
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
 import UserCard from "./UserCard";
-import { useSelector, useDispatch } from "react-redux";
-import { initList } from "../Reducers/listReducer";
+
+// Import MUI Icon
+import AddReactionIcon from "@mui/icons-material/AddReaction";
+
+// Import Firebase / Firestore
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Firebase from "../../Firebase";
-import AddReactionIcon from "@mui/icons-material/AddReaction";
+
+// Import Component
 import AddUserDialog from "./Dialogs/AddUserDialog";
 import EditUserDialog from "./Dialogs/EditUserDialog";
 import DltUserDialog from "./Dialogs/DltUserDialog";
+
+// Import Reducer
+import { initList } from "../Reducers/listReducer";
 import { toggleDialog } from "../Reducers/adminDialogReducer";
 
-const db = getFirestore(Firebase);
-const mdTheme = createTheme();
-
 function DashboardContent() {
+  // Hooks
   const dispatch = useDispatch();
+
+  // Variables
+  const db = getFirestore(Firebase);
+  const mdTheme = createTheme();
+  const dialogMap = {
+    add_user: <AddUserDialog />,
+    edit_user: <EditUserDialog />,
+    delete_user: <DltUserDialog />,
+  };
+
+  // Redux
   const userList = useSelector((state) => state.list.users);
-  const auth = useSelector((state) => state.auth);
   const dialog = useSelector((state) => state.adminDialog);
 
+  // Functions
   useEffect(() => {
     // Fetch All User
     if (userList.length <= 0) init();
@@ -31,7 +50,6 @@ function DashboardContent() {
   }, []);
 
   const init = async () => {
-    console.log("fetching");
     const querySnapshot = await getDocs(collection(db, "users"));
     let userList = [];
     querySnapshot.forEach((doc) => {
@@ -55,12 +73,7 @@ function DashboardContent() {
     dispatch(toggleDialog({ currDialog, visible: true }));
   };
 
-  const dialogMap = {
-    add_user: <AddUserDialog />,
-    edit_user: <EditUserDialog />,
-    delete_user: <DltUserDialog />,
-  };
-
+  // Render
   return (
     <ThemeProvider theme={mdTheme}>
       <Box className="p-3 user-container" sx={{ maxHeight: "80vh", overflowY: "auto", overflowX: "hidden" }}>

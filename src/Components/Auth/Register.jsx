@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
-// MUI
+// Import React / Redux
+import React from "react";
+import { useHistory } from "react-router-dom";
+
+// Import MUI
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   FormControl,
@@ -19,19 +22,26 @@ import {
   Container,
 } from "@mui/material";
 
-// Custom Component
+// Import Component
 import Copyright from "./Copyright";
+
+// Import Firebase / Firestore
 import firebase from "../../Firebase";
 import { addDoc, collection, getFirestore, query, where, getDocs } from "firebase/firestore";
+
+// Import Other Plugin
 import Swal from "sweetalert2";
 import CryptoJS from "crypto-js";
 
-const theme = createTheme();
-const db = getFirestore(firebase);
-
 export default function SignUp() {
-  useEffect(() => {}, []);
+  // Variables
+  const theme = createTheme();
+  const db = getFirestore(firebase);
 
+  // Hooks
+  let history = useHistory();
+
+  // Functions
   const register = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -42,13 +52,17 @@ export default function SignUp() {
       const querySnapshot = await getDocs(q);
       if (querySnapshot.size <= 0) {
         const docRef = await addDoc(collection(db, "users"), userData);
-        if (docRef.id) Swal.fire("Successfully Added New User", "", "success");
+        if (docRef.id) {
+          Swal.fire("Successfully Registered As New User", "Please login with your email", "success");
+          history.push("/login");
+        }
       } else {
         Swal.fire("Email has been used by another user!", "Please register using another email address", "warning");
       }
     }
   };
 
+  // Render
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

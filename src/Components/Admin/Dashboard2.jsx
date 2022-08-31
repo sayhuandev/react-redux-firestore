@@ -1,10 +1,15 @@
+// Import React / Redux
 import React from "react";
+
+// Import MUI
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
-const mdTheme = createTheme();
-
 function DashboardContent() {
+  // Variables
+  const mdTheme = createTheme();
+
+  // Render
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>

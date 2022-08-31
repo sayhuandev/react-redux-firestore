@@ -1,21 +1,23 @@
-import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
-import firebase from "../../Firebase";
 
 export const listSlice = createSlice({
   name: "list",
   initialState: {
+    // design structure like this to allow new list added in the future
     users: [],
   },
   reducers: {
+    // Init listing based on type
     initList: (state, action) => {
       let { list, type } = action.payload;
       state[type] = list;
     },
+    // Add New User
     addNewUser: (state, action) => {
       let userData = action.payload.newUserData;
       state.users = [...state.users, userData];
     },
+    // Update User
     updateUser: (state, action) => {
       let userData = action.payload.latestUserData;
       state.users = state.users.map((u) =>
@@ -31,9 +33,10 @@ export const listSlice = createSlice({
           : u
       );
     },
+    // Delete User
     deleteUser: (state, action) => {
       let uid = action.payload.uid;
-      state.users = state.users.filter((u) => u.auth_uid != uid);
+      state.users = state.users.filter((u) => u.auth_uid !== uid);
     },
   },
 });
