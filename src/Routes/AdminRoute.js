@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
 import AdminLayout from "../Components/Layouts/AdminLayout";
+import { useSelector } from "react-redux";
 
 const AdminRoute = (...rest) => {
-  const history = useHistory();
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(false);
-    setAuthenticated(true);
+    if (auth.auth_email != "" && auth.auth_role == "admin") {
+      setAuthenticated(true);
+      setLoading(false);
+    }
+
     return () => {
       setAuthenticated(false);
     };

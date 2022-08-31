@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Redirect, Route } from "react-router-dom";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
-import AdminRoute from "./Routes/AdminRoute"
-import UserRoute from "./Routes/UserRoute"
+import AdminRoute from "./Routes/AdminRoute";
+import UserRoute from "./Routes/UserRoute";
 
 const loginPath = () => {
   if (localStorage.getItem("auth_token")) {
@@ -30,6 +30,7 @@ const registerPath = () => {
 };
 
 function App() {
+
   return (
     <div className="App">
       <Router>

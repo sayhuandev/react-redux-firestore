@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
 import UserLayout from "../Components/Layouts/UserLayout";
+import { useSelector } from "react-redux";
 
 const UserRoute = (...rest) => {
-  const history = useHistory();
+  const auth = useSelector((state) => state.auth);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setAuthenticated(true);
-    setLoading(false);
+    if (auth.auth_email != "" && auth.auth_role == "user") {
+      setAuthenticated(true);
+      setLoading(false);
+    }
+
     return () => {
       setAuthenticated(false);
     };
