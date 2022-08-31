@@ -14,7 +14,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logoutAuth } from "../Reducers/authReducer";
 import { useDispatch } from "react-redux";
@@ -89,7 +88,7 @@ export default function NavBar() {
   };
 
   const logout = () => {
-    dispatch(logoutAuth({ aaa: "aaa", bbb: "bbb" }, "actionnnn"));
+    dispatch(logoutAuth());
     Swal.fire("Logout Successfully", "Please come again", "success");
     setTimeout(() => history.push("/login"), 1000);
   };
@@ -172,7 +171,7 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
-            Home
+            Dashboard
           </Typography>
           <Search>
             <SearchIconWrapper>

@@ -10,7 +10,9 @@ const AdminRoute = (...rest) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    if (auth.auth_email != "" && auth.auth_role == "admin") {
+    let email = auth.auth_email || localStorage.getItem("user_email"); 
+    let role = auth.auth_role || localStorage.getItem("user_role"); 
+    if (email != "" && role == "admin") {
       setAuthenticated(true);
       setLoading(false);
     }

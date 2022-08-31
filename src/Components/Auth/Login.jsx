@@ -42,6 +42,8 @@ export default function Login() {
           let userPsw = CryptoJS.AES.decrypt(userData.password, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8);
           if (userPsw === password) {
             Swal.fire("Logged In Successfully", "", "success");
+            localStorage.setItem("user_role", userData.role);
+            localStorage.setItem("user_email", userData.email);
             dispatch(
               initAuth({
                 auth_role: userData.role,
